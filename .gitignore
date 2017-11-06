@@ -77,3 +77,14 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.opensdf
+drawLine.sdf
+*.sln
+*.lastbuildstate
+drawLine/Debug/link-cvtres.read.1.tlog
+*.tlog
+*.idb
+*.vcxproj
+drawLine/drawLine.vcxproj.filters
+*.ps
+drawLine/hw1.xpm
