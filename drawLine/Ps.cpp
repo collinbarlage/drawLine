@@ -80,13 +80,7 @@ Polygon& Ps::getPolygon() {
 void Ps::makeFramebuffer(bool dda) {
 	//draw each line
 	for(int i=0; i<lines.size(); i++){
-		//cout << "getting clipoing... \n";
-		//Point clippoint = lines[i].getClipPoint(fb);
-		//cout << "clippoint: (" << clippoint.getX() << ", " <<
-			//clippoint.getY() << ")\n";
-		//cout << endl;
 		lines[i].draw(fb);
-
 	}
 	
 	//draw each polygon

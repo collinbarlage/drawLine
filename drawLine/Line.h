@@ -29,12 +29,13 @@ public:
 	int getX1();
 	int getX2();
 	int getY1();
-	float slope;
 	int getY2();
+	float slope;
 
 private:
 	Point p1;
 	Point p2;
 	bool valid; 
+	bool swap;
 };
 #endif

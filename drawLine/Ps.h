@@ -26,8 +26,10 @@ private:
 	Framebuffer fb;
 	Polygon& getPolygon();
 	vector<Line> lines;
+	vector<Line> validLines;
 	vector<Polygon> polygons;
 	void addLine(Line *l);
+	void addValidLine(Line *l);
 	void addPolygon(Polygon *p);
 };
 #endif

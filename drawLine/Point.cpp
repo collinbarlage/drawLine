@@ -48,17 +48,9 @@ void Point::clip(int xMax, int yMax, Point o, float slope) {
 
 	if(bitcode[0] == 1) { //point is above
 		y = yMax;
-		if(x < o.getX()) {
-			x = round(float(y - (xMax - o.getY()))/abs(slope));
-			cout << "x = (" << y << " - " << "(" << xMax << " - ";
-		} else if (x = o.getX()) {
-			cout << "x = (x - (y - o.getY()) / abs(slope))\n";
-			cout << "= (" << x << " - (" << y << " - " << o.getY() << ") / abs|" << slope << "|)\n";
-			x = round(x - float(y - o.getY())/abs(slope));
-		} else {
-			x = round(float(y - o.getY())/abs(slope));
-			cout << "wat 3";
-		}
+		x = o.getX() + float(y - o.getY())/slope;
+		//cout << " o.getX() + float(y - o.getY())/slope\n";
+		//cout << o.getX() << " + float(" << y << " - " <<o.getY()<<") / " << slope <<endl;
 		cout << "point above ---> "<< x << " "<< y << endl; 
 		return;
 	}

@@ -1,3 +1,4 @@
+
 #include "Polygon.h"
 #include <iostream>
 
@@ -22,7 +23,6 @@ void Polygon::draw(Framebuffer &fb) {
 
 	//check for clipping
 	int i = 0;
-
 
 	//clip
 	L = Line(points.at(0), points.at(1), fb);
@@ -51,7 +51,7 @@ void Polygon::draw(Framebuffer &fb) {
 	temp.addPoint(&points.at(0));
 	//go through remaining points
 	for(i; i<points.size()-1; i++) {
-		cout << i <<" ~ (" << points.at(i).getX() << ", " << points.at(i).getY() << ") -> (" << points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")  ~~~~~> ";
+		cout << i <<" ~ (" << points.at(i).getX() << ", " << points.at(i).getY() << ") -> (" << points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")  ~~~>\n";
 
 		//set line
 		L = Line(points.at(i), points.at(i+1), fb);
@@ -66,7 +66,6 @@ void Polygon::draw(Framebuffer &fb) {
 			const Point point = L.getClipPoint(fb);
 			temp.addPoint(&point);
 
-
 		} else if(isNotInBounds == 2) { //out -> in
 			//get clipped point 
 			//cout << "clipping line point (" << L.getPoint(1).getX() << ", " << L.getPoint(1).getY() << ") -> ("<<L.getPoint(2).getX() << ", " << L.getPoint(2).getY()<<")\n";
@@ -76,6 +75,7 @@ void Polygon::draw(Framebuffer &fb) {
 			
 			const Point point = L.getClipPoint(fb); 
 			temp.addPoint(&point);
+			temp.addPoint(&points.at(i+1));
 
 		}
 	}
@@ -83,11 +83,15 @@ void Polygon::draw(Framebuffer &fb) {
 	const Point point = L.getPoint(2);
 	temp.addPoint(&point);
 
+
+
+
 	//loop through all points and draw
 	for(int i=0; i < temp.size()-1; i++) {
 		cout << "    ";
 		//draw line
 		L = Line(temp.getPoint(i), temp.getPoint(i+1), fb);
+		cout << "L = (" << L.getPoint(1).getX() << ", " << L.getPoint(1).getY() << "), (" << L.getPoint(2).getX() << ", " << L.getPoint(2).getY() << ")\n";
 		L.draw(fb);
 	}
 }

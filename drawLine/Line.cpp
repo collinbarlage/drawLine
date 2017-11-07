@@ -14,13 +14,8 @@ Line::Line(void)
 
 Line::Line(string x1, string y1, string x2, string y2) {
 	//assign points
-	if(stoi(x1) > stoi(x2)) {
-		p1 = Point(stoi(x2), stoi(y2));
-		p2 = Point(stoi(x1), stoi(y1));
-	} else {
-		p1 = Point(stoi(x1), stoi(y1));
-		p2 = Point(stoi(x2), stoi(y2));
-	}
+	p1 = Point(stoi(x1), stoi(y1));
+	p2 = Point(stoi(x2), stoi(y2));
 
 	slope = float(p2.getY() - p1.getY()) / float(p2.getX() - p1.getX());
 
@@ -28,14 +23,10 @@ Line::Line(string x1, string y1, string x2, string y2) {
 }
 
 Line::Line(Point point1, Point point2, Framebuffer &fb) {
+	cout << "swap = " << swap << endl;
 	//assign points
-	if(p1.getX() > p2.getX()) {
-		p1 = point2; 
-		p2 = point1;
-	} else {
-		p1 = point1;
-		p2 = point2; 
-	}
+	p1 = point1;
+	p2 = point2; 
 	p1.setBitcode(fb.x, fb.y);
 	p2.setBitcode(fb.x, fb.y);
 
@@ -53,13 +44,19 @@ void Line::draw(Framebuffer &fb) {
 
 	//check bounderys for clipping
 	if(isNotInBounds(fb.x, fb.y != 0)) {
-			clip(fb.x, fb.y); //clip!
+		clip(fb.x, fb.y); //clip!
 	}
 
-	int x1 = p1.getX(); int y1 = p1.getY();
-	int x2 = p2.getX(); int y2 = p2.getY();
-
-
+	//assign points
+	int x1, x2, y1, y2;
+	if(p1.getX() > p2.getX()) {
+		//swap negitive quadrent
+		x2 = p1.getX(); y2 = p1.getY();
+		x1 = p2.getX(); y1 = p2.getY();
+	} else {
+		x1 = p1.getX(); y1 = p1.getY();
+		x2 = p2.getX(); y2 = p2.getY();
+	}
 
 	if(valid){ //Draw DDA
 		float x = float(x1); //initial X starting point
@@ -100,15 +97,18 @@ Point Line::getClipPoint(Framebuffer &fb) {
 
 	//check bounderys for clipping
 	if(isNotInBounds(fb.x, fb.y != 0)) {
-			clip(fb.x, fb.y); //clip!
+		clip(fb.x, fb.y); //clip!
 	}
-
-
-
-	int x1 = p1.getX(); int y1 = p1.getY();
-	int x2 = p2.getX(); int y2 = p2.getY();
-
-	
+	//assign points
+	int x1, x2, y1, y2;
+	if(p1.getX() > p2.getX()) {
+		//swap negitive quadrent
+		x2 = p1.getX(); y2 = p1.getY();
+		x1 = p2.getX(); y1 = p2.getY();
+	} else {
+		x1 = p1.getX(); y1 = p1.getY();
+		x2 = p2.getX(); y2 = p2.getY();
+	}
 
 	if(valid){ 
 		float x = float(x1); //initial X starting point
@@ -118,7 +118,6 @@ Point Line::getClipPoint(Framebuffer &fb) {
 			cout << "returning 1: " << x << ", " << y << endl;
 			return Point(x, y);
 		}
-
 
 		if( slope < -1) {
 			//decrement y
@@ -152,17 +151,17 @@ Point Line::getClipPoint(Framebuffer &fb) {
 int Line::isNotInBounds(int xMax, int yMax) {
 	if(p1.isOutOfBounds() && p2.isOutOfBounds()) { 
 		//cout << " out -> out \n";
-			return 3;
+		return 3;
 
 	} // 2 = out -> in
 	else if(p1.isOutOfBounds() && !p2.isOutOfBounds()) {
 		//cout << " out -> in \n";
-			 return 2;
+		return 2;
 
 	}// 1 = in -> out
 	else if(!p1.isOutOfBounds() && p2.isOutOfBounds()) {
 		//cout << " in -> out \n";
-			 return 1;
+		return 1;
 	} // 0 = inbounds
 	else { // 0 = inbounds
 		//cout << " in -> in \n";
@@ -175,12 +174,6 @@ void Line::clip(int xMax, int yMax) {
 	//first, set bitcodes
 	p1.setBitcode(xMax, yMax);
 	p2.setBitcode(xMax, yMax);
-
-	//flip negitive quadrent
-	if(p1.getX() > p2.getX() && p1.getY() > p2.getY()) {
-		//p1.swap(p2);
-		cout << "should have swapped bruh\n";
-	}
 
 	//logical AND bitcodes to see if we should draw anything
 	if(p1.logicAnd(p2.bitcode) == 1) { //lines are totally outside of clipping area!
@@ -208,17 +201,33 @@ Point Line::getPoint(int n) {
 }
 
 int Line::getX1() {
-	return p1.getX();
+	if(swap) {
+		return p2.getX();
+	} else {
+		return p1.getX();
+	}
 }
 
 int Line::getX2() {
-	return p2.getX();
+	if(swap) {
+		return p1.getX();
+	} else {
+		return p2.getX();
+	}
 }
 int Line::getY1() {
-	return p1.getY();
+	if(swap) {
+		return p2.getY();
+	} else {
+		return p1.getY();
+	}
 }
 int Line::getY2() {
-	return p2.getY();
+	if(swap) {
+		return p1.getY();
+	} else {
+		return p2.getY();
+	}
 }
 
 bool Line::isValid() {
