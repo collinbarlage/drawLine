@@ -25,7 +25,8 @@ public:
 	bool isValid();
 	int  isNotInBounds(int xMax, int yMax);
 	Point getPoint(int n);
-	Point getClipPoint(Framebuffer &fb);
+	Point getClipPoint1(Framebuffer &fb);
+	Point getClipPoint2(Framebuffer &fb);
 	int getX1();
 	int getX2();
 	int getY1();
@@ -35,7 +36,7 @@ public:
 private:
 	Point p1;
 	Point p2;
+	int x1, x2, y1, y2;
 	bool valid; 
-	bool swap;
 };
 #endif

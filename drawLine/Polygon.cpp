@@ -21,19 +21,16 @@ void Polygon::draw(Framebuffer &fb) {
 	Polygon temp = Polygon();
 	Line L;
 
-	//check for clipping
-	int i = 0;
 
 	//clip
+	int i = 0;
 	L = Line(points.at(0), points.at(1), fb);
 	int isNotInBounds = L.isNotInBounds(fb.width, fb.height);
 
 	while(isNotInBounds == 2 || isNotInBounds == 3) { //while starting point is out of bounds
-		//cout << i <<" ~ ";
-
 		//get valid starting point
 		if(isNotInBounds == 3) { //out -> out
-			i++; //skip this sillyness
+			i++; //skip this sillyness //TODO: NOT ALWAYS THE CASE
 		} else { // out -> in
 			L.clip(fb.x, fb.y);
 			replacePoint(i, L.getPoint(1));
@@ -61,26 +58,30 @@ void Polygon::draw(Framebuffer &fb) {
 			temp.addPoint(&points.at(i+1));
 		} else if(isNotInBounds == 1) { //in -> out
 			//get clipped point 
-			L.clip(fb.x, fb.y);
-			cout << "in -> out ... adding point (" << L.getPoint(2).getX() << ", " << L.getPoint(2).getY() << ")\n";
-			const Point point = L.getClipPoint(fb);
+			const Point point = L.getClipPoint2(fb);
+			cout << "in -> out ... adding point (" << point.getX() << ", " << point.getY() << ")\n";
 			temp.addPoint(&point);
 
 		} else if(isNotInBounds == 2) { //out -> in
 			//get clipped point 
-			//cout << "clipping line point (" << L.getPoint(1).getX() << ", " << L.getPoint(1).getY() << ") -> ("<<L.getPoint(2).getX() << ", " << L.getPoint(2).getY()<<")\n";
-			//cout << "clipping on (" << fb.x <<")\n";
-			L.clip(fb.x, fb.y);
-			cout << "out -> in ... adding point (" << L.getPoint(1).getX() << ", " << L.getPoint(1).getY() << ")\n";
-			
-			const Point point = L.getClipPoint(fb); 
+			const Point point = L.getClipPoint1(fb);
+			cout << "out -> in ... adding points (" << point.getX() << ", " << point.getY() << ") and ("<< points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")\n";
 			temp.addPoint(&point);
 			temp.addPoint(&points.at(i+1));
+		} else { //out -> out
+			//get clipped points?
+			if(L.isValid()) {
+				const Point point1 =  L.getClipPoint1(fb);
+				const Point point2 =  L.getClipPoint2(fb);
+				cout << "out -> out ... adding points (" << point1.getX() << ", " << point1.getY() << ") and ("<< point2.getX() << ", " << point2.getY() << ")\n";
 
+				temp.addPoint(&point1);
+				temp.addPoint(&point2);
+			}
 		}
 	}
 	//don't forget to add the last point!
-	const Point point = L.getPoint(2);
+	const Point point = points.at(0);
 	temp.addPoint(&point);
 
 

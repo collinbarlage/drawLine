@@ -16,8 +16,8 @@ public:
 
 	//methods
 	void clip(int x, int y, Point o, float slope);
-	int getX();
-	int getY();
+	int getX() const;
+	int getY() const;
 	void setX(int n);
 	void setY(int n);
 	bool isOutOfBounds();
