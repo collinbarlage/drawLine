@@ -33,6 +33,8 @@ void Polygon::draw(Shapebuffer &sb) {
 	int isNotInBounds = L.isNotInBounds(sb.width, sb.height);
 
 	while(isNotInBounds == 2 || isNotInBounds == 3) { //while starting point is out of bounds
+			cout << "WAT" << i << endl;
+
 		L = Line(points.at(i), points.at(i+1), sb);
 
 		//get valid starting point
@@ -48,16 +50,15 @@ void Polygon::draw(Shapebuffer &sb) {
 		int isNotInBounds = L.isNotInBounds(sb.x, sb.y);
 
 		//ignore silly polygons
-		if (i > points.size()) {
+		if (i >= points.size()-1) {
 			return; 
 		}
 	}
-
 	//add first point
 	temp.addPoint(&points.at(0));
 	//go through remaining points
 	for(i; i<points.size()-1; i++) {
-		cout << i <<" ~ (" << points.at(i).getX() << ", " << points.at(i).getY() << ") -> (" << points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")  ~~~>\n";
+		//cout << i <<" ~ (" << points.at(i).getX() << ", " << points.at(i).getY() << ") -> (" << points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")  ~~~>\n";
 
 		//set line
 		L = Line(points.at(i), points.at(i+1), sb);
@@ -68,13 +69,13 @@ void Polygon::draw(Shapebuffer &sb) {
 		} else if(isNotInBounds == 1) { //in -> out
 			//get clipped point 
 			const Point point = L.getClipPoint2(sb);
-			cout << "in -> out ... adding point (" << point.getX() << ", " << point.getY() << ")\n";
+			//cout << "in -> out ... adding point (" << point.getX() << ", " << point.getY() << ")\n";
 			temp.addPoint(&point);
 
 		} else if(isNotInBounds == 2) { //out -> in
 			//get clipped point 
 			const Point point = L.getClipPoint1(sb);
-			cout << "out -> in ... adding points (" << point.getX() << ", " << point.getY() << ") and ("<< points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")\n";
+			//cout << "out -> in ... adding points (" << point.getX() << ", " << point.getY() << ") and ("<< points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")\n";
 			temp.addPoint(&point);
 			temp.addPoint(&points.at(i+1));
 		} else { //out -> out
@@ -82,7 +83,7 @@ void Polygon::draw(Shapebuffer &sb) {
 			if(L.isValid()) {
 				const Point point1 =  L.getClipPoint1(sb);
 				const Point point2 =  L.getClipPoint2(sb);
-				cout << "out -> out ... adding points (" << point1.getX() << ", " << point1.getY() << ") and ("<< point2.getX() << ", " << point2.getY() << ")\n";
+				//cout << "out -> out ... adding points (" << point1.getX() << ", " << point1.getY() << ") and ("<< point2.getX() << ", " << point2.getY() << ")\n";
 
 				temp.addPoint(&point1);
 				temp.addPoint(&point2);
