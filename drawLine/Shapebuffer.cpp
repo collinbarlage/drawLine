@@ -44,6 +44,7 @@ void Shapebuffer::fill(Polygon p, char c) {
 			if(getPixel(i,j) == c) {
 				if(isTopVertex(i,j,p) && getPixel(i+1,j) == '-') {
 					//ignore
+					cout << endl;
 				} else if(isTopVertex(i,j,p) && getPixel(i+1,j) == c) {
 					//ignore multiple
 					while(getPixel(i+1,j) == c) {
@@ -53,6 +54,7 @@ void Shapebuffer::fill(Polygon p, char c) {
 							break;
 						}
 					}
+					cout << endl;
 				} else if(getPixel(i+1,j) == c) {
 					//ignore thick line
 				} else {
@@ -75,23 +77,24 @@ bool Shapebuffer::isTopVertex(int x, int y, Polygon p) {
 			Point a, b, c;
 			b = p.getPoint(i);
 			c = p.getPoint(i+1);
-
 			if(i == 0) {
 				a = p.getPoint(p.size()-2);
 			} else {
 				a = p.getPoint(i-1);
 			}
-			if((b.getY() > a.getY() && b.getY() > c.getY()) ||
-				(b.getY() < a.getY() && b.getY() < c.getY())) {
+
+
+			if((b.getY() >= a.getY() && b.getY() >= c.getY()) ||
+				(b.getY() <= a.getY() && b.getY() <= c.getY())) {
 					//cout << "[" << a.getX() << "][" << a.getY() << "] -> [" << b.getX() << "][" << b.getY() << "] -> ["  << c.getX() << "][" << c.getY() << "]";
-					cout << "TOP\n";
+					cout << "TOP";
 					return true;
 			} else if( isYMax(a,b,c) && isRightTriangle(a,b,c)) {
-				cout << "Corner!\n";
+				cout << "Corner!";
 				return true;
 
 			} else {
-				cout << "mid\n";
+				cout << "mid";
 				return false;
 			}
 		}
