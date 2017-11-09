@@ -2,11 +2,11 @@
 #ifndef _LINE_
 #define _LINE_
 #include <string>
-#include "Framebuffer.h"
+#include "Shapebuffer.h"
 #include "Point.h"
 using namespace std;
 
-class Framebuffer;
+class Shapebuffer;
 
 class Line
 {
@@ -14,19 +14,19 @@ public:
 	//constructors
 	Line(void);
 	Line(string x1, string y1, string x2, string y2);
-	Line(Point p1, Point p2, Framebuffer &fb);
+	Line(Point p1, Point p2, Shapebuffer &sb);
 
 	//destructor
 	~Line(void);
 
 	//methods
-	void draw(Framebuffer &fb);
+	void draw(Shapebuffer &sb);
 	void clip(int x, int y);
 	bool isValid();
 	int  isNotInBounds(int xMax, int yMax);
 	Point getPoint(int n);
-	Point getClipPoint1(Framebuffer &fb);
-	Point getClipPoint2(Framebuffer &fb);
+	Point getClipPoint1(Shapebuffer &sb);
+	Point getClipPoint2(Shapebuffer &sb);
 	int getX1();
 	int getX2();
 	int getY1();

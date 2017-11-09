@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "Point.h"
-#include "Framebuffer.h"
+#include "Shapebuffer.h"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ public:
 	~Polygon(void);
 
 	//methods
-	void draw(Framebuffer &fb);
+	void draw(Shapebuffer &sb);
 	void addPoint(string x, string y);
 	void addPoint(const Point *p);
 	Point getPoint(int i);
@@ -31,5 +31,7 @@ public:
 private:
 	vector<Point> points;
 	bool valid; 
+	void checkCorners(int side, int inOut);
+	int corners[4];
 };
 #endif

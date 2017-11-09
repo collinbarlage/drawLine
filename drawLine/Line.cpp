@@ -29,12 +29,12 @@ Line::Line(string x1, string y1, string x2, string y2) {
 	}
 }
 
-Line::Line(Point point1, Point point2, Framebuffer &fb) {
+Line::Line(Point point1, Point point2, Shapebuffer &sb) {
 	//assign points
 	p1 = point1;
 	p2 = point2; 
-	p1.setBitcode(fb.x, fb.y);
-	p2.setBitcode(fb.x, fb.y);
+	p1.setBitcode(sb.x, sb.y);
+	p2.setBitcode(sb.x, sb.y);
 
 	slope = float(p2.getY() - p1.getY()) / float(p2.getX() - p1.getX());
 
@@ -50,12 +50,12 @@ Line::~Line(void)
 {
 }
 
-void Line::draw(Framebuffer &fb) {
+void Line::draw(Shapebuffer &sb) {
 	cout << "drawing line: (" << p1.getX() << ", " << p1.getY() << ") -> (" << p2.getX() << ", " << p2.getY() << ")\n";
 
 	//check bounderys for clipping
-	if(isNotInBounds(fb.x, fb.y != 0)) {
-		clip(fb.x, fb.y); //clip!
+	if(isNotInBounds(sb.x, sb.y != 0)) {
+		clip(sb.x, sb.y); //clip!
 	}
 
 	//assign points
@@ -76,40 +76,40 @@ void Line::draw(Framebuffer &fb) {
 		if( slope < -1) {
 			//decrement y
 			while(y > y2) {
-				fb.setPixel(x, y, '#'); 
+				sb.setPixel(x, y, '#'); 
 				x = x - 1/slope;
 				y--;
 			}
 		} else if(slope < 1) {
 			//increment x
 			while(x < x2) {
-				fb.setPixel(x, y, '#'); 
+				sb.setPixel(x, y, '#'); 
 				y = y + slope;
 				x++;
 			}
 		} else {
 			//increment y
 			while(y < y2) {
-				fb.setPixel(x, y, '#'); 
+				sb.setPixel(x, y, '#'); 
 				x = x + 1/slope;
 				y++;
 			}
 		}
 		//don't forget about last point!
-		fb.setPixel(x, y, '#'); 
+		sb.setPixel(x, y, '#'); 
 	}
 
 }
 
-Point Line::getClipPoint1(Framebuffer &fb) {
+Point Line::getClipPoint1(Shapebuffer &sb) {
 	while(p1.isOutOfBounds()) {
-		p1.clip(fb.x, fb.y, p1, slope);
+		p1.clip(sb.x, sb.y, p1, slope);
 	}
 	return p1;
 }
-Point Line::getClipPoint2(Framebuffer &fb) {
+Point Line::getClipPoint2(Shapebuffer &sb) {
 	while(p2.isOutOfBounds()) {
-		p2.clip(fb.x, fb.y, p1, slope);
+		p2.clip(sb.x, sb.y, p1, slope);
 	}
 	return p2;
 }

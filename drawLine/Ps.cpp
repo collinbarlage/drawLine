@@ -79,14 +79,23 @@ Polygon& Ps::getPolygon() {
 
 void Ps::makeFramebuffer(bool dda) {
 	//draw each line
-	for(int i=0; i<lines.size(); i++){
-		lines[i].draw(fb);
-	}
-	
-	//draw each polygon
+	//for(int i=0; i<lines.size(); i++){
+	//lines[i].draw(fb);
+	//}
+
+	//add each polygon to shape buffer
+	vector<Shapebuffer> shapes;
 	for(int i=0; i<polygons.size(); i++){
-		polygons[i].draw(fb);
+		Shapebuffer shape = Shapebuffer();
+		polygons[i].draw(shape);
+		shapes.push_back(shape);
 		cout << endl;
+	}
+
+	//fill, then draw each shape
+	for(int i=0; i<shapes.size(); i++){
+		shapes[i].fill(polygons[i], '#');
+		shapes[i].draw(fb);
 	}
 }
 

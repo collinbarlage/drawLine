@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include "Framebuffer.h"
+#include "Shapebuffer.h"
 #include "Polygon.h"
 #include "Line.h"
 #ifndef _PS_

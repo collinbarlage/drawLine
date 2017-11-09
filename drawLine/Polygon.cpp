@@ -10,13 +10,18 @@ Polygon::Polygon(void)
 Polygon::Polygon(string x, string y) {
 	valid = false;
 	addPoint(x, y);
+	//setup corners
+	corners[0] = 0;
+	corners[1] = 0;
+	corners[2] = 0;
+	corners[3] = 0;
 }
 
 Polygon::~Polygon(void)
 {
 }
 
-void Polygon::draw(Framebuffer &fb) {
+void Polygon::draw(Shapebuffer &sb) {
 	cout << "drawing polygon... \n";
 	Polygon temp = Polygon();
 	Line L;
@@ -24,26 +29,30 @@ void Polygon::draw(Framebuffer &fb) {
 
 	//clip
 	int i = 0;
-	L = Line(points.at(0), points.at(1), fb);
-	int isNotInBounds = L.isNotInBounds(fb.width, fb.height);
+	L = Line(points.at(0), points.at(1), sb);
+	int isNotInBounds = L.isNotInBounds(sb.width, sb.height);
 
 	while(isNotInBounds == 2 || isNotInBounds == 3) { //while starting point is out of bounds
+		L = Line(points.at(i), points.at(i+1), sb);
+
 		//get valid starting point
-		if(isNotInBounds == 3) { //out -> out
-			i++; //skip this sillyness //TODO: NOT ALWAYS THE CASE
+		if(isNotInBounds == 3 && !L.isValid()) { //out -> out
+			i++; //skip this sillyness 
+		} else if(isNotInBounds == 3) { // out -> out 
+			replacePoint(i, L.getClipPoint1(sb));
 		} else { // out -> in
-			L.clip(fb.x, fb.y);
+			L.clip(sb.x, sb.y);
 			replacePoint(i, L.getPoint(1));
 		}
 
-		int isNotInBounds = L.isNotInBounds(fb.x, fb.y);
+		int isNotInBounds = L.isNotInBounds(sb.x, sb.y);
 
 		//ignore silly polygons
 		if (i > points.size()) {
 			return; 
 		}
-
 	}
+
 	//add first point
 	temp.addPoint(&points.at(0));
 	//go through remaining points
@@ -51,28 +60,28 @@ void Polygon::draw(Framebuffer &fb) {
 		cout << i <<" ~ (" << points.at(i).getX() << ", " << points.at(i).getY() << ") -> (" << points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")  ~~~>\n";
 
 		//set line
-		L = Line(points.at(i), points.at(i+1), fb);
-		isNotInBounds = L.isNotInBounds(fb.x, fb.y);
+		L = Line(points.at(i), points.at(i+1), sb);
+		isNotInBounds = L.isNotInBounds(sb.x, sb.y);
 
 		if(isNotInBounds == 0) { //in bounds
 			temp.addPoint(&points.at(i+1));
 		} else if(isNotInBounds == 1) { //in -> out
 			//get clipped point 
-			const Point point = L.getClipPoint2(fb);
+			const Point point = L.getClipPoint2(sb);
 			cout << "in -> out ... adding point (" << point.getX() << ", " << point.getY() << ")\n";
 			temp.addPoint(&point);
 
 		} else if(isNotInBounds == 2) { //out -> in
 			//get clipped point 
-			const Point point = L.getClipPoint1(fb);
+			const Point point = L.getClipPoint1(sb);
 			cout << "out -> in ... adding points (" << point.getX() << ", " << point.getY() << ") and ("<< points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")\n";
 			temp.addPoint(&point);
 			temp.addPoint(&points.at(i+1));
 		} else { //out -> out
 			//get clipped points?
 			if(L.isValid()) {
-				const Point point1 =  L.getClipPoint1(fb);
-				const Point point2 =  L.getClipPoint2(fb);
+				const Point point1 =  L.getClipPoint1(sb);
+				const Point point2 =  L.getClipPoint2(sb);
 				cout << "out -> out ... adding points (" << point1.getX() << ", " << point1.getY() << ") and ("<< point2.getX() << ", " << point2.getY() << ")\n";
 
 				temp.addPoint(&point1);
@@ -91,9 +100,9 @@ void Polygon::draw(Framebuffer &fb) {
 	for(int i=0; i < temp.size()-1; i++) {
 		cout << "    ";
 		//draw line
-		L = Line(temp.getPoint(i), temp.getPoint(i+1), fb);
+		L = Line(temp.getPoint(i), temp.getPoint(i+1), sb);
 		cout << "L = (" << L.getPoint(1).getX() << ", " << L.getPoint(1).getY() << "), (" << L.getPoint(2).getX() << ", " << L.getPoint(2).getY() << ")\n";
-		L.draw(fb);
+		L.draw(sb);
 	}
 }
 
@@ -120,4 +129,8 @@ Point Polygon::getPoint(int i) {
 
 int Polygon::size() {
 	return points.size();
+}
+
+void Polygon::checkCorners(int side, int inOut) {
+
 }
