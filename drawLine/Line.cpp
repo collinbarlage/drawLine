@@ -102,8 +102,13 @@ void Line::draw(Shapebuffer &sb) {
 }
 
 Point Line::getClipPoint1(Shapebuffer &sb) {
+	int i = 0;
 	while(p1.isOutOfBounds()) {
 		p1.clip(sb.x, sb.y, p1, slope);
+		i++;
+		if(i > 4) {
+			return Point(0, 499); //hack
+		}
 	}
 	return p1;
 }

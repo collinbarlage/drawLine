@@ -107,8 +107,8 @@ void Ps::makeFramebuffer(bool dda) {
 
 		
 		//transform to world
-		polygons.at(i).trans(-1 * xWorldMin, -1 * yWorldMin); 
-		polygons.at(i).scale(xWorldScale, yWorldScale);
+		//polygons.at(i).trans(-1 * xWorldMin, -1 * yWorldMin); 
+		//polygons.at(i).scale(xWorldScale, yWorldScale);
 		//cout << "scale: " << xWorldScale << ", " << yWorldScale << endl;
 		
 

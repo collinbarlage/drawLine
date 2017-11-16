@@ -35,11 +35,12 @@ void Polygon::draw(Shapebuffer &sb) {
 	while(isNotInBounds == 2 || isNotInBounds == 3) { //while starting point is out of bounds
 		cout << i << ": ";
 		L = Line(points.at(i), points.at(i+1), sb);
-
 		//get valid starting point
 		if(isNotInBounds == 3 && !L.isValid()) { //out -> out
 			i++; //skip this sillyness 
+
 		} else if(isNotInBounds == 3) { // out -> out 
+			//cout << L.getPoint(1).getX() << ", " << L.getPoint(1).getY()  << " -> " << L.getPoint(2).getX() << ", " << L.getPoint(2).getY()<< "\n";
 			replacePoint(i, L.getClipPoint1(sb));
 			//L.valid = true;
 		} else { // out -> in
@@ -56,8 +57,10 @@ void Polygon::draw(Shapebuffer &sb) {
 	}
 	//add first point
 	temp.addPoint(&points.at(0));
+
 	//go through remaining points
 	for(i; i<points.size()-1; i++) {
+
 		//cout << i <<" ~ (" << points.at(i).getX() << ", " << points.at(i).getY() << ") -> (" << points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")  ~~~>\n";
 
 		//set line
