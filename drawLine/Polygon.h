@@ -25,6 +25,9 @@ public:
 	Point getPoint(int i);
 	void replacePoint(int i, Point p);
 	void finishPolygon();
+	void rotate(int theta);
+	void scale(float sx, float sy);
+	void trans(int dx, int dy);
 	bool isValid();
 	int  size();
 

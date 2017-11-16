@@ -14,6 +14,7 @@ Point::Point(void)
 Point::Point(int X, int Y) {
 	x = X;
 	y = Y;
+	w = 1;
 	bitcode[0] = 1;
 	bitcode[1] = 1;
 	bitcode[2] = 1;
@@ -23,6 +24,7 @@ Point::Point(int X, int Y) {
 Point::Point(float X, float Y) {
 	x = round(X);
 	y = round(Y);
+	w = 1;
 	bitcode[0] = 1;
 	bitcode[1] = 1;
 	bitcode[2] = 1;
@@ -99,6 +101,10 @@ int Point::getY() const {
 	return y;
 }
 
+int Point::getW() const {
+	return w;
+}
+
 void Point::setX(int n) {
 	x = n;
 }
@@ -107,9 +113,35 @@ void Point::setY(int n) {
 	y = n;
 }
 
+void Point::setW(int n) {
+	w = n;
+}
+
+void Point::rotate(int theta) {
+	float rad = 0.01745329252 * theta;
+	int X = x;
+	int Y = y;
+	x = round((X*cos(rad)) - (Y*sin(rad)));
+	y = round((X*sin(rad)) + (Y*cos(rad)));
+	w = 1;
+	setBitcode(x,y);
+}
+
+void Point::scale(float sx, float sy) {
+	x = round(float(x) * sx);
+	y = round(float(y) * sy);
+	setBitcode(x,y);
+}
+
+void Point::trans(int dx, int dy) {
+	x = x + dx;
+	y = y + dy;
+	w = 1;
+	setBitcode(x,y);
+}
 void Point::swap(Point &p) {
 	int tempX = p.getX();
-	int tempY = p.getY();
+	int tempY = p.getY(); 
 	p.setX(x);
 	p.setY(y);
 	x = tempX;

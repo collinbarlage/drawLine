@@ -33,8 +33,7 @@ void Polygon::draw(Shapebuffer &sb) {
 	int isNotInBounds = L.isNotInBounds(sb.width, sb.height);
 
 	while(isNotInBounds == 2 || isNotInBounds == 3) { //while starting point is out of bounds
-			cout << "WAT" << i << endl;
-
+		cout << i << ": ";
 		L = Line(points.at(i), points.at(i+1), sb);
 
 		//get valid starting point
@@ -42,12 +41,13 @@ void Polygon::draw(Shapebuffer &sb) {
 			i++; //skip this sillyness 
 		} else if(isNotInBounds == 3) { // out -> out 
 			replacePoint(i, L.getClipPoint1(sb));
+			//L.valid = true;
 		} else { // out -> in
 			L.clip(sb.x, sb.y);
 			replacePoint(i, L.getPoint(1));
 		}
 
-		int isNotInBounds = L.isNotInBounds(sb.x, sb.y);
+		isNotInBounds = L.isNotInBounds(sb.width, sb.height);
 
 		//ignore silly polygons
 		if (i >= points.size()-1) {
@@ -78,6 +78,7 @@ void Polygon::draw(Shapebuffer &sb) {
 			//cout << "out -> in ... adding points (" << point.getX() << ", " << point.getY() << ") and ("<< points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")\n";
 			temp.addPoint(&point);
 			temp.addPoint(&points.at(i+1));
+
 		} else { //out -> out
 			//get clipped points?
 			if(L.isValid()) {
@@ -104,6 +105,30 @@ void Polygon::draw(Shapebuffer &sb) {
 		L = Line(temp.getPoint(i), temp.getPoint(i+1), sb);
 		cout << "L = (" << L.getPoint(1).getX() << ", " << L.getPoint(1).getY() << "), (" << L.getPoint(2).getX() << ", " << L.getPoint(2).getY() << ")\n";
 		L.draw(sb);
+	}
+}
+
+void Polygon::rotate(int theta) {
+	if(theta != 0) {
+		for(int i=0; i<points.size(); i++) {
+			points.at(i).rotate(theta);
+		}
+	}
+}
+
+void Polygon::scale(float sx, float sy) {
+	if(!(sx == 1 && sy == 1)) {
+		for(int i=0; i<points.size(); i++) {
+			points.at(i).scale(sx, sy);
+		}
+	}
+}
+
+void Polygon::trans(int dx, int dy) {
+	if(!(dx == 0 && dy == 0)) {
+		for(int i=0; i<points.size(); i++) {
+			points.at(i).trans(dx, dy);
+		}
 	}
 }
 

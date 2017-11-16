@@ -179,5 +179,11 @@ int Line::getY2() {
 }
 
 bool Line::isValid() {
+	//logical AND bitcodes to see if we should draw anything
+	if(p1.logicAnd(p2.bitcode) == 1) { //lines are totally outside of clipping area!
+		valid = false;
+	} else {
+		valid = true;
+	}
 	return valid;
 }

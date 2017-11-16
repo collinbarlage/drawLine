@@ -83,6 +83,48 @@ void Ps::makeFramebuffer(bool dda) {
 	//lines[i].draw(fb);
 	//}
 
+
+	//set up world view and viewport
+	float xWorldScale = 1; 
+	float yWorldScale = 1;
+	float xViewScale = 1;
+	float yViewScale = 1;
+	if(!(xWorldMax == 0 && xWorldMin == 0)) {
+		xWorldScale = float(fb.width)/(float(xWorldMax - xWorldMin));
+		xViewScale = (float(xViewMax - xViewMin))/(float(xWorldMax - xWorldMin));
+	}
+	if(!(yWorldMax == 0 && yWorldMin == 0)) {
+		yWorldScale = float(fb.height)/(float(yWorldMax - yWorldMin));
+		yViewScale = (float(yViewMax - yViewMin))/(float(yWorldMax - yWorldMin));
+	} 
+
+
+
+
+	//transform each polygon
+	for(int i=0; i<polygons.size(); i++) {
+		
+
+		
+		//transform to world
+		polygons.at(i).trans(-1 * xWorldMin, -1 * yWorldMin); 
+		polygons.at(i).scale(xWorldScale, yWorldScale);
+		//cout << "scale: " << xWorldScale << ", " << yWorldScale << endl;
+		
+
+		//scale
+		polygons.at(i).scale(scale, scale);
+		//rotate
+		polygons.at(i).rotate(rotation);
+		//translate
+		polygons.at(i).trans(xTrans, yTrans);
+
+		//transform to viewport
+		polygons.at(i).trans(-1 * xWorldMin, -1 * yWorldMin); 
+		polygons.at(i).scale(xViewScale, yViewScale);
+		polygons.at(i).trans(xViewMin, yViewMin); 
+	}
+
 	//add each polygon to shape buffer
 	vector<Shapebuffer> shapes;
 	for(int i=0; i<polygons.size(); i++){
@@ -94,7 +136,7 @@ void Ps::makeFramebuffer(bool dda) {
 
 	//fill, then draw each shape
 	for(int i=0; i<shapes.size(); i++){
-		shapes[i].fill(polygons[i], '#');
+		//shapes[i].fill(polygons[i], '#');
 		shapes[i].draw(fb);
 	}
 }

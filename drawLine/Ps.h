@@ -22,6 +22,22 @@ public:
 	void input(string input);
 	void makeFramebuffer(bool dda);
 	char getPixel(int x, int y);
+	
+	//public vars
+	float scale;
+	int rotation;
+	int xTrans;
+	int yTrans;
+	int xWorldMin;
+	int yWorldMin;
+	int xWorldMax;
+	int yWorldMax;
+	int xViewMin;
+	int yViewMin;
+	int xViewMax;
+	int yViewMax;
+
+
 
 private:
 	Framebuffer fb;

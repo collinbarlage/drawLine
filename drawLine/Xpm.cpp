@@ -4,10 +4,12 @@
 
 Xpm::Xpm(void)
 {
-	width = 500;
-	height = 500;
 	ncolors = 2;
 	charsperpixel = 1;
+	xMax = 500;
+	yMax = 500;
+	xMin = 0;
+	yMin = 0;
 }
 
 
@@ -22,7 +24,7 @@ void Xpm::write(string filename, Ps &ps){
 	of.open (filename);
 	//default xpm header
 	of << "/*XPM*/\nstatic char *sco100[] = {\n";
-	of << "\"" << width << " " << height << " " << ncolors << " " << charsperpixel << "\",\n";
+	of << "\"" << xMax << " " << yMax << " " << ncolors << " " << charsperpixel << "\",\n";
 
 	//TODO: loop through ps's colors
 	of << "/*colors*/\n";
@@ -31,9 +33,9 @@ void Xpm::write(string filename, Ps &ps){
 
 	//pixels
 	of << "/*pixels*/\n";
-	for(int j=height-1; j>=0; j--) {
+	for(int j=yMax-1; j>=yMin; j--) {
 		of << "\"";
-		for(int i=0; i<width; i++) {
+		for(int i=xMin; i<xMax; i++) {
 			of << ps.getPixel(i,j);
 		}
 		of << "\",\n";

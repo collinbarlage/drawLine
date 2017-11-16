@@ -7,6 +7,7 @@ class Xpm
 {
 public:
 	Xpm(void);
+	Xpm(int xViewMin, int yViewMin, int xViewMax, int yViewMax);
 
 	~Xpm(void);
 
@@ -14,10 +15,12 @@ public:
 
 
 private:
-	int width;
-	int height;
 	int ncolors;
 	int charsperpixel;
+	int xMin;
+	int yMin;
+	int xMax;
+	int yMax;
 };
 
 #endif

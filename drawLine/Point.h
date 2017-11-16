@@ -18,8 +18,13 @@ public:
 	void clip(int x, int y, Point o, float slope);
 	int getX() const;
 	int getY() const;
+	int getW() const;
 	void setX(int n);
 	void setY(int n);
+	void setW(int n);
+	void rotate(int theta);
+	void scale(float sx, float sy);
+	void trans(int dx, int dy);
 	bool isOutOfBounds();
 	int bitcode[4];
 	void setBitcode(int x, int y);
@@ -30,6 +35,7 @@ public:
 private:
 	int x;
 	int y;
+	int w; //homogenous coordinate
 	int round(float n);
 
 };
