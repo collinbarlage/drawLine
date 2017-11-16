@@ -51,7 +51,7 @@ Line::~Line(void)
 }
 
 void Line::draw(Shapebuffer &sb) {
-	cout << "drawing line: (" << p1.getX() << ", " << p1.getY() << ") -> (" << p2.getX() << ", " << p2.getY() << ")\n";
+	//////cout << "drawing line: (" << p1.getX() << ", " << p1.getY() << ") -> (" << p2.getX() << ", " << p2.getY() << ")\n";
 
 	//check bounderys for clipping
 	if(isNotInBounds(sb.x, sb.y != 0)) {
@@ -122,27 +122,27 @@ Point Line::getClipPoint2(Shapebuffer &sb) {
 
 int Line::isNotInBounds(int xMax, int yMax) {
 	if(p1.isOutOfBounds() && p2.isOutOfBounds()) { 
-		//cout << " out -> out \n";
+		////////cout << " out -> out \n";
 		return 3;
 
 	} // 2 = out -> in
 	else if(p1.isOutOfBounds() && !p2.isOutOfBounds()) {
-		//cout << " out -> in \n";
+		////////cout << " out -> in \n";
 		return 2;
 
 	}// 1 = in -> out
 	else if(!p1.isOutOfBounds() && p2.isOutOfBounds()) {
-		//cout << " in -> out \n";
+		////////cout << " in -> out \n";
 		return 1;
 	} // 0 = inbounds
 	else { // 0 = inbounds
-		//cout << " in -> in \n";
+		////////cout << " in -> in \n";
 		return 0;
 	}
 }
 
 void Line::clip(int xMax, int yMax) {
-	cout << "slope = " << slope << endl;
+	//////cout << "slope = " << slope << endl;
 	//first, set bitcodes
 	p1.setBitcode(xMax, yMax);
 	p2.setBitcode(xMax, yMax);
