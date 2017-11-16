@@ -1,7 +1,7 @@
 # drawLine 🔥
-CS430 A3
+CS430 A5
 Collin Barlage  
-11/8/2017
+11/16/2017
 
 ## Features
 
@@ -23,11 +23,11 @@ The `main()` method for this program can be found in `drawLine.cpp`.
 
 ## How to run
 
-To run drawLine in TUX, simply exicute `make` in the program's root directory. Then, exicute the program by typing `./drawLine INSERT ARGUMENTS HERE`.  
+To run A5 in TUX, simply execute `make` in the program's root directory. Then, exicute the program by typing `./A5 -INSERT -ARGUMENTS HERE`.  
 For example:  
 ```
 > make
-> ./drawLine -f hw1_8.ps -x
+> ./A5 -f hw1_8.ps -x
 ```
 
 🔥🔥🔥
