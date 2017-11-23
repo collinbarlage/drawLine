@@ -22,7 +22,7 @@ Polygon::~Polygon(void)
 }
 
 void Polygon::draw(Shapebuffer &sb) {
-	//////cout << "drawing polygon... \n";
+	cout << "drawing polygon... \n";
 	Polygon temp = Polygon();
 	Line L;
 
@@ -33,14 +33,14 @@ void Polygon::draw(Shapebuffer &sb) {
 	int isNotInBounds = L.isNotInBounds(sb.width, sb.height);
 
 	while(isNotInBounds == 2 || isNotInBounds == 3) { //while starting point is out of bounds
-		//////cout << i << ": ";
+		cout << i << ": ";
 		L = Line(points.at(i), points.at(i+1), sb);
 		//get valid starting point
 		if(isNotInBounds == 3 && !L.isValid()) { //out -> out
 			i++; //skip this sillyness 
 
 		} else if(isNotInBounds == 3) { // out -> out 
-			////////cout << L.getPoint(1).getX() << ", " << L.getPoint(1).getY()  << " -> " << L.getPoint(2).getX() << ", " << L.getPoint(2).getY()<< "\n";
+			//cout << L.getPoint(1).getX() << ", " << L.getPoint(1).getY()  << " -> " << L.getPoint(2).getX() << ", " << L.getPoint(2).getY()<< "\n";
 			replacePoint(i, L.getClipPoint1(sb));
 			//L.valid = true;
 		} else { // out -> in
@@ -61,7 +61,7 @@ void Polygon::draw(Shapebuffer &sb) {
 	//go through remaining points
 	for(i; i<points.size()-1; i++) {
 
-		////////cout << i <<" ~ (" << points.at(i).getX() << ", " << points.at(i).getY() << ") -> (" << points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")  ~~~>\n";
+		//cout << i <<" ~ (" << points.at(i).getX() << ", " << points.at(i).getY() << ") -> (" << points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")  ~~~>\n";
 
 		//set line
 		L = Line(points.at(i), points.at(i+1), sb);
@@ -72,13 +72,13 @@ void Polygon::draw(Shapebuffer &sb) {
 		} else if(isNotInBounds == 1) { //in -> out
 			//get clipped point 
 			const Point point = L.getClipPoint2(sb);
-			////////cout << "in -> out ... adding point (" << point.getX() << ", " << point.getY() << ")\n";
+			//cout << "in -> out ... adding point (" << point.getX() << ", " << point.getY() << ")\n";
 			temp.addPoint(&point);
 
 		} else if(isNotInBounds == 2) { //out -> in
 			//get clipped point 
 			const Point point = L.getClipPoint1(sb);
-			////////cout << "out -> in ... adding points (" << point.getX() << ", " << point.getY() << ") and ("<< points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")\n";
+			//cout << "out -> in ... adding points (" << point.getX() << ", " << point.getY() << ") and ("<< points.at(i+1).getX() << ", " << points.at(i+1).getY() << ")\n";
 			temp.addPoint(&point);
 			temp.addPoint(&points.at(i+1));
 
@@ -87,7 +87,7 @@ void Polygon::draw(Shapebuffer &sb) {
 			if(L.isValid()) {
 				const Point point1 =  L.getClipPoint1(sb);
 				const Point point2 =  L.getClipPoint2(sb);
-				////////cout << "out -> out ... adding points (" << point1.getX() << ", " << point1.getY() << ") and ("<< point2.getX() << ", " << point2.getY() << ")\n";
+				//cout << "out -> out ... adding points (" << point1.getX() << ", " << point1.getY() << ") and ("<< point2.getX() << ", " << point2.getY() << ")\n";
 
 				temp.addPoint(&point1);
 				temp.addPoint(&point2);
@@ -103,10 +103,10 @@ void Polygon::draw(Shapebuffer &sb) {
 
 	//loop through all points and draw
 	for(int i=0; i < temp.size()-1; i++) {
-		//////cout << "    ";
+		cout << "    ";
 		//draw line
 		L = Line(temp.getPoint(i), temp.getPoint(i+1), sb);
-		//////cout << "L = (" << L.getPoint(1).getX() << ", " << L.getPoint(1).getY() << "), (" << L.getPoint(2).getX() << ", " << L.getPoint(2).getY() << ")\n";
+		cout << "L = (" << L.getPoint(1).getX() << ", " << L.getPoint(1).getY() << "), (" << L.getPoint(2).getX() << ", " << L.getPoint(2).getY() << ")\n";
 		L.draw(sb);
 	}
 }

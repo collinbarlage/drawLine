@@ -44,17 +44,17 @@ void Shapebuffer::fill(Polygon p, char c) {
 			if(getPixel(i,j) == c) {
 				if(isTopVertex(i,j,p) && getPixel(i+1,j) == '-') {
 					//ignore
-					////////cout << endl;
+					//cout << endl;
 				} else if(isTopVertex(i,j,p) && getPixel(i+1,j) == c) {
 					//ignore multiple
 					while(getPixel(i+1,j) == c) {
-						////////cout << "ignored a pixel.." << endl;
+						//cout << "ignored a pixel.." << endl;
 						i++;
 						if(isTopVertex(i,j,p)) {
 							break;
 						}
 					}
-					////////cout << endl;
+					//cout << endl;
 				} else if(getPixel(i+1,j) == c) {
 					//ignore thick line
 				} else {
@@ -86,15 +86,15 @@ bool Shapebuffer::isTopVertex(int x, int y, Polygon p) {
 
 			if((b.getY() > a.getY() && b.getY() > c.getY()) ||
 				(b.getY() < a.getY() && b.getY() < c.getY())) {
-					////////cout << "[" << a.getX() << "][" << a.getY() << "] -> [" << b.getX() << "][" << b.getY() << "] -> ["  << c.getX() << "][" << c.getY() << "]";
-					////////cout << "TOP";
+					//cout << "[" << a.getX() << "][" << a.getY() << "] -> [" << b.getX() << "][" << b.getY() << "] -> ["  << c.getX() << "][" << c.getY() << "]";
+					//cout << "TOP";
 					return true;
 			} else if( isYMax(a,b,c) && isRightTriangle(a,b,c)) {
-				////////cout << "Corner!";
+				//cout << "Corner!";
 				return true;
 
 			} else {
-				////////cout << "mid";
+				//cout << "mid";
 				return false;
 			}
 		}
@@ -119,14 +119,14 @@ bool Shapebuffer::isYMax(Point a, Point b, Point c) {
 }
 
 bool Shapebuffer::isRightTriangle(Point a, Point b, Point c) {
-	////////cout << "[" << a.getX() << "][" << a.getY() << "] -> [" << b.getX() << "][" << b.getY() << "] -> ["  << c.getX() << "][" << c.getY() << "]";
+	//cout << "[" << a.getX() << "][" << a.getY() << "] -> [" << b.getX() << "][" << b.getY() << "] -> ["  << c.getX() << "][" << c.getY() << "]";
 
 	if((a.getY() == b.getY() && b.getX() == c.getX()) ||
 		(a.getX() == b.getX() && b.getY() == c.getY())) {
-			////////cout << "TRUUUU\n";
+			//cout << "TRUUUU\n";
 			return true;
 	}
-	////////cout << "nah, bruh\n";
+	//cout << "nah, bruh\n";
 
 	return false;
 }

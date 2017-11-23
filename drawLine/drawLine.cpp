@@ -71,8 +71,8 @@ int getArg(vector<string> args, string arg) {
 
 int main(int argc, const char * argv[])
 {
-	//cout << "\n-------------COOL ~~ DRAWER-------------\n";
-	//cout <<   "             Made by Collin\n\n";
+	cout << "\n-------------COOL ~~ DRAWER-------------\n";
+	cout <<   "             Made by Collin\n\n";
 
 	//get args
 	vector<string> args(argv, argv + argc);
@@ -89,7 +89,7 @@ int main(int argc, const char * argv[])
 
 
 	//load file 
-	//cout << "Loading file from " << fileName << " ...\n";
+	cout << "Loading file from " << fileName << " ...\n";
 	Ps ps = Ps(); //construct ps object
 	Ps *psPointer = &ps; //construct ps object
 	ifstream infile(fileName.c_str());
