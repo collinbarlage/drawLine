@@ -98,13 +98,8 @@ void Ps::makeFramebuffer(bool dda) {
 		yViewScale = (float(yViewMax - yViewMin))/(float(yWorldMax - yWorldMin));
 	} 
 
-
-
-
 	//transform each polygon
 	for(int i=0; i<polygons.size(); i++) {
-		
-
 		
 		//transform to world
 		//polygons.at(i).trans(-1 * xWorldMin, -1 * yWorldMin); 
