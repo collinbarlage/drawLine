@@ -15,12 +15,14 @@ public:
 	Line(void);
 	Line(string x1, string y1, string x2, string y2);
 	Line(Point p1, Point p2, Shapebuffer &sb);
+	Line(Point p1, Point p2, Framebuffer &fb);
 
 	//destructor
 	~Line(void);
 
 	//methods
 	void draw(Shapebuffer &sb);
+	void drawToFrame(Framebuffer &fb);
 	void clip(int x, int y);
 	bool isValid();
 	int  isNotInBounds(int xMax, int yMax);

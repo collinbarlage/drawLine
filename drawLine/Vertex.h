@@ -17,7 +17,9 @@ public:
 
 	//methods
 	float getX() const;
+	float getFrameX() const;
 	float getY() const;
+	float getFrameY() const;
 	float getZ() const;
 	int getW() const;
 	void setX(float n);

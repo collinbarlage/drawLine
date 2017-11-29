@@ -178,7 +178,7 @@ int main(int argc, const char * argv[])
 
 		//write image
 		Xpm xpm = Xpm();
-		xpm.write(fileName.substr(0, fileName.find(".ps")), ps);
+		xpm.writePs(fileName.substr(0, fileName.find(".ps")), ps);
 
 	} else {
 		//read in smf file
@@ -186,7 +186,7 @@ int main(int argc, const char * argv[])
 		//set args
 		smf.scale      = getScale(args);
 		smf.ortho      = getProjection(args);
-		smf.rotation   = getArg(args, "-r");
+		smf.angle      = getArg(args, "-r");
 		smf.xTrans     = getArg(args, "-m");
 		smf.yTrans     = getArg(args, "-n");
 		smf.xWorldMin  = getArg(args, "-a");		
@@ -219,11 +219,11 @@ int main(int argc, const char * argv[])
 			smf.input(fin);
 		}
 
-		smf.makeFramebuffer(true);
+		smf.makeFramebuffer();
 
 		//write image
 		Xpm xpm = Xpm();
-		xpm.write(fileName.substr(0, fileName.find(".smf")), ps);
+		xpm.writeSmf(fileName.substr(0, fileName.find(".smf")), smf);
 
 	}
 

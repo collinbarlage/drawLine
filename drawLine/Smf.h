@@ -21,13 +21,13 @@ public:
 
 	//Methods
 	void input(string input);
-	void makeFramebuffer(bool ortho);
+	void makeFramebuffer();
 	char getPixel(int x, int y);
 	
 	//public vars
 	float scale;
 	bool ortho;
-	int rotation;
+	int angle;
 	int xTrans;
 	int yTrans;
 	int xWorldMin;

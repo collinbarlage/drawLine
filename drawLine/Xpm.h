@@ -2,6 +2,7 @@
 #define _XPM_
 #include <string>
 #include "Ps.h"
+#include "Smf.h"
 using namespace std;
 class Xpm
 {
@@ -11,7 +12,8 @@ public:
 
 	~Xpm(void);
 
-	void write(string filename, Ps &ps);
+	void writePs(string filename, Ps &ps);
+	void writeSmf(string filename, Smf &smf);
 
 
 private:

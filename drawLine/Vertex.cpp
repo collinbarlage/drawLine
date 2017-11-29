@@ -27,8 +27,16 @@ float Vertex::getX() const {
 	return x;
 }
 
+float Vertex::getFrameX() const {
+	return ((x*250) + 250);
+}
+
 float Vertex::getY() const {
 	return y;
+}
+
+float Vertex::getFrameY() const {
+	return ((y*250) + 250);
 }
 
 float Vertex::getZ() const {

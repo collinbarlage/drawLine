@@ -46,6 +46,23 @@ Line::Line(Point point1, Point point2, Shapebuffer &sb) {
 	}
 }
 
+Line::Line(Point point1, Point point2, Framebuffer &fb) {
+	//assign points
+	p1 = point1;
+	p2 = point2; 
+	p1.setBitcode(fb.x, fb.y);
+	p2.setBitcode(fb.x, fb.y);
+
+	slope = float(p2.getY() - p1.getY()) / float(p2.getX() - p1.getX());
+
+	//logical AND bitcodes to see if we should draw anything
+	if(p1.logicAnd(p2.bitcode) == 1) { //lines are totally outside of clipping area!
+		valid = false;
+	} else {
+		valid = true;
+	}
+}
+
 Line::~Line(void)
 {
 }
@@ -97,6 +114,57 @@ void Line::draw(Shapebuffer &sb) {
 		}
 		//don't forget about last point!
 		sb.setPixel(x, y, '#'); 
+	}
+
+}
+
+void Line::drawToFrame(Framebuffer &fb) {
+	//cout << "drawing line: (" << p1.getX() << ", " << p1.getY() << ") -> (" << p2.getX() << ", " << p2.getY() << ")\n";
+
+	//check bounderys for clipping
+	if(isNotInBounds(fb.x, fb.y != 0)) {
+		clip(fb.x, fb.y); //clip!
+	}
+
+	//assign points
+	int x1, x2, y1, y2;
+	if(p1.getX() > p2.getX()) {
+		//swap negitive quadrent
+		x2 = p1.getX(); y2 = p1.getY();
+		x1 = p2.getX(); y1 = p2.getY();
+	} else {
+		x1 = p1.getX(); y1 = p1.getY();
+		x2 = p2.getX(); y2 = p2.getY();
+	}
+
+	if(valid){ //Draw DDA
+		float x = float(x1); //initial X starting point
+		float y = float(y1); //initial Y starting point
+
+		if( slope < -1) {
+			//decrement y
+			while(y > y2) {
+				fb.setPixel(x, y, '#'); 
+				x = x - 1/slope;
+				y--;
+			}
+		} else if(slope < 1) {
+			//increment x
+			while(x < x2) {
+				fb.setPixel(x, y, '#'); 
+				y = y + slope;
+				x++;
+			}
+		} else {
+			//increment y
+			while(y < y2) {
+				fb.setPixel(x, y, '#'); 
+				x = x + 1/slope;
+				y++;
+			}
+		}
+		//don't forget about last point!
+		fb.setPixel(x, y, '#'); 
 	}
 
 }

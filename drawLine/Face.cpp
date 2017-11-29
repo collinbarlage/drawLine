@@ -16,8 +16,9 @@ Face::~Face(void)
 {
 }
 
-void Face::draw(Shapebuffer &sb) {
-	cout << "drawing Face... \n";
+Vertex Face::getVertex(int i) {
+	return *vertices.at(i);
 	
 }
+
 

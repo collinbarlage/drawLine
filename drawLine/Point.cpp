@@ -59,7 +59,7 @@ void Point::clip(int xMax, int yMax, Point o, float slope) {
 	if(bitcode[1] == 1) { //point is below
 		y = 0;
 		x = o.getX() + round(float(0 - o.getY())/slope);
-	cout << "point below ---> "<< x << " "<< y << endl; 
+		cout << "point below ---> "<< x << " "<< y << endl; 
 		return;
 	}
 	if(bitcode[2] == 1) { //point is right
@@ -139,6 +139,8 @@ void Point::trans(int dx, int dy) {
 	w = 1;
 	setBitcode(x,y);
 }
+
+
 void Point::swap(Point &p) {
 	int tempX = p.getX();
 	int tempY = p.getY(); 
