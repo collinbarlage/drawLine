@@ -1,6 +1,6 @@
 default: A6
 
-A6.o: drawLine.cpp Point.cpp Point.h Line.cpp Line.h Ps.cpp Ps.h Xpm.cpp Xpm.h Framebuffer.cpp Framebuffer.h Polygon.cpp Polygon.h Shapebuffer.cpp Shapebuffer.h Matrix.cpp Matrix.h Smf.cpp Smf.h Vertex.cpp Vertex.h
+A6.o: drawLine.cpp Point.cpp Point.h Line.cpp Line.h Ps.cpp Ps.h Xpm.cpp Xpm.h Framebuffer.cpp Framebuffer.h Polygon.cpp Polygon.h Shapebuffer.cpp Shapebuffer.h Matrix.cpp Matrix.h Smf.cpp Smf.h Vertex.cpp Vertex.h Face.cpp Face.h
 	g++ -std=c++11 -c drawLine.cpp -o A6.o
 	g++ -std=c++11 -c Point.cpp -o Point.o
 	g++ -std=c++11 -c Line.cpp -o Line.o
@@ -13,10 +13,11 @@ A6.o: drawLine.cpp Point.cpp Point.h Line.cpp Line.h Ps.cpp Ps.h Xpm.cpp Xpm.h F
 	g++ -std=c++11 -c Matrix.cpp -o Matrix.o
 	g++ -std=c++11 -c Smf.cpp -o Smf.o
 	g++ -std=c++11 -c Vertex.cpp -o Vertex.o
+	g++ -std=c++11 -c Face.cpp -o Face.o
 
 
-A6: A6.o Point.o Line.o Ps.o Xpm.o Framebuffer.o Polygon.o Shapebuffer.o Matrix.o Smf.o Vertex.o
-	g++ A6.o Point.o Line.o Ps.o Xpm.o Framebuffer.o Polygon.o Shapebuffer.o Matrix.o Smf.o Vertex.o -o A6
+A6: A6.o Point.o Line.o Ps.o Xpm.o Framebuffer.o Polygon.o Shapebuffer.o Matrix.o Smf.o Vertex.o Face.o
+	g++ A6.o Point.o Line.o Ps.o Xpm.o Framebuffer.o Polygon.o Shapebuffer.o Matrix.o Smf.o Vertex.o Face.o -o A6
 	rm -f *.o
 
 clean:
