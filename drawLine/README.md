@@ -1,7 +1,7 @@
 # drawLine 🔥
-CS430 A5
+CS430 A6
 Collin Barlage  
-11/16/2017
+11/29/2017
 
 ## Features
 
@@ -30,4 +30,4 @@ For example:
 > ./A5 -f hw1_8.ps -x
 ```
 
-🔥🔥🔥
+🔥**RESPECT ART**🔥
