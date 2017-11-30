@@ -104,7 +104,7 @@ void Smf::makeFramebuffer() {
 			1/(front-back), 0);
 		mProj.addColumn((-1*(uMax+uMin)/(uMax-uMin)), 
 			(-1*(vMax+vMin)/(vMax-vMin)), 
-			(-1*(front/(front-back))), 1);
+			(-1*(front/(front-back))), 1); 
 
 	} else {
 		//perspective proj
@@ -146,9 +146,12 @@ void Smf::makeFramebuffer() {
 		} else {
 			//create perspective points
 			for(int p=0; p<3; p++) {
+				//cout << "<" << faces.at(i).getVertex(0).getX() << ", " << faces.at(i).getVertex(0).getY() << ">  -->  ";
 				zDiv = faces.at(i).getVertex(p).getZ();
-				points[p] = Point(-1*faces.at(i).getVertex(p).getFrameX()/zDiv, 
-					-1*faces.at(i).getVertex(p).getFrameY()/zDiv);
+				//cout << "  zDiv: " << zDiv << "  "; 
+				points[p] = Point(-1*faces.at(i).getVertex(p).getX()/zDiv*250 + 250, 
+					-1*faces.at(i).getVertex(p).getY()/zDiv*250 +250);
+				//cout << "<" << points[p].getX() << ", " << points[p].getY() << "> \n";
 			}
 		}
 

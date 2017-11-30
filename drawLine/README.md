@@ -23,11 +23,11 @@ The `main()` method for this program can be found in `drawLine.cpp`.
 
 ## How to run
 
-To run A5 in TUX, simply execute `make` in the program's root directory. Then, exicute the program by typing `./A5 -INSERT -ARGUMENTS HERE`.  
+To run A6 in TUX, simply execute `make` in the program's root directory. Then, exicute the program by typing `./A6 -INSERT -ARGUMENTS HERE`.  
 For example:  
 ```
 > make
-> ./A5 -f hw1_8.ps -x
+> ./A6 -f hw1_8.ps -x
 ```
 
 🔥**RESPECT ART**🔥
