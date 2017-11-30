@@ -46,26 +46,26 @@ void Point::setBitcode(int xMax, int yMax) {
 void Point::clip(int xMax, int yMax, Point o, float slope) {
 	//reset bitcodes
 	setBitcode(xMax, yMax);
-	//cout <<  "bitcode =  "<< bitcode[0] << bitcode[1] << bitcode[2] << bitcode[3] << endl; 
+	////cout <<  "bitcode =  "<< bitcode[0] << bitcode[1] << bitcode[2] << bitcode[3] << endl; 
 
 	if(bitcode[0] == 1) { //point is above
 		y = yMax;
 		x = o.getX() + float(y - o.getY())/slope;
-		//cout << " o.getX() + float(y - o.getY())/slope\n";
-		//cout << o.getX() << " + float(" << y << " - " <<o.getY()<<") / " << slope <<endl;
-		//cout << "point above ---> "<< x << " "<< y << endl; 
+		////cout << " o.getX() + float(y - o.getY())/slope\n";
+		////cout << o.getX() << " + float(" << y << " - " <<o.getY()<<") / " << slope <<endl;
+		////cout << "point above ---> "<< x << " "<< y << endl; 
 		return;
 	}
 	if(bitcode[1] == 1) { //point is below
 		y = 0;
 		x = o.getX() + round(float(0 - o.getY())/slope);
-		//cout << "point below ---> "<< x << " "<< y << endl; 
+		////cout << "point below ---> "<< x << " "<< y << endl; 
 		return;
 	}
 	if(bitcode[2] == 1) { //point is right
 		x = xMax;
 		y = round(float((slope * (x - o.getX())) + o.getY()));
-		//cout << "point right ---> "<< x << " "<< y << endl; 
+		////cout << "point right ---> "<< x << " "<< y << endl; 
 
 		return;
 	}
@@ -75,7 +75,7 @@ void Point::clip(int xMax, int yMax, Point o, float slope) {
 			slope = abs(slope);
 		}
 		y = round(float((slope * abs(o.getX())) + o.getY()));
-		//cout << "point left ---> "<< x << " "<< y << endl; 
+		////cout << "point left ---> "<< x << " "<< y << endl; 
 		return;
 	}
 

@@ -104,7 +104,7 @@ void Ps::makeFramebuffer(bool dda) {
 		//transform to world
 		//polygons.at(i).trans(-1 * xWorldMin, -1 * yWorldMin); 
 		//polygons.at(i).scale(xWorldScale, yWorldScale);
-		//cout << "scale: " << xWorldScale << ", " << yWorldScale << endl;
+		////cout << "scale: " << xWorldScale << ", " << yWorldScale << endl;
 		
 
 		//scale
@@ -126,7 +126,7 @@ void Ps::makeFramebuffer(bool dda) {
 		Shapebuffer shape = Shapebuffer();
 		polygons[i].draw(shape);
 		shapes.push_back(shape);
-		cout << endl;
+		//cout << endl;
 	}
 
 	//fill, then draw each shape

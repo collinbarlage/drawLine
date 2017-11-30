@@ -45,7 +45,7 @@ void Smf::input(string input) {
 
 
 void Smf::makeFramebuffer() {
-	cout << "ortho: " << ortho << endl;
+	//cout << "ortho: " << ortho << endl;
 
 	//set up world view and viewport
 	float xWorldScale = 1; 
@@ -65,10 +65,10 @@ void Smf::makeFramebuffer() {
 	Matrix VPN = Matrix(xVpn, yVpn, zVpn, 1);
 	Matrix VUP = Matrix(xVup, yVup, zVup, 1);
 	Matrix u = VUP.cross(VPN);
-	cout << "u:\n";
+	//cout << "u:\n";
 	u.print();
 	Matrix v = VPN.cross(u);
-	cout << "v:\n";
+	//cout << "v:\n";
 	v.print();
 
 	//rotation matrix
@@ -76,7 +76,7 @@ void Smf::makeFramebuffer() {
 	rotation.addColumn(u.get(0,2), v.get(0,2), VPN.get(0,2), 0);
 	rotation.addColumn(u.get(0,1), v.get(0,1), VPN.get(0,1), 0);
 	rotation.addColumn(0, 0, 0, 1);
-	cout << "Roataion:\n";
+	//cout << "Roataion:\n";
 	rotation.print();
 
 	//translation matrix
@@ -84,19 +84,19 @@ void Smf::makeFramebuffer() {
 	translation.addColumn(0, 1, 0, 0);
 	translation.addColumn(0, 0, 1, 0);
 	translation.addColumn(-1*xVrp, -1*yVrp, -1*zVrp, 1);
-	cout << "Translation:\n";
+	//cout << "Translation:\n";
 	translation.print();
 
 	//calculate view matrix
 	Matrix mView = rotation.multiply(translation);
-	cout << "mView:\n";
+	//cout << "mView:\n";
 	mView.print();
 
 	//set up projection matrix
 	Matrix mProj = Matrix();
 	if(ortho) {
 		//orthographic AKA paralell proj
-		cout << "ORTHO\n";
+		//cout << "ORTHO\n";
 		mProj.addColumn(2/(uMax - uMin), 0, 0, 0);
 		mProj.addColumn(0, 2/(vMax-vMin), 0, 0);
 		mProj.addColumn(((uMax+uMin)-(2*xPrp))/((uMax-uMin)*zPrp), 
@@ -108,7 +108,7 @@ void Smf::makeFramebuffer() {
 
 	} else {
 		//perspective proj
-		cout << "PERSPECTIVE\n";
+		//cout << "PERSPECTIVE\n";
 		mProj.addColumn((2*zPrp)/((uMax-uMin)*(zPrp-back)), 0, 0, 0);
 		mProj.addColumn(0, (2*zPrp)/((vMax-vMin)*(zPrp-back)), 0, 0);
 		mProj.addColumn(((uMax+uMin-2)*xPrp)/((uMax-uMin)*(zPrp-back)), 
@@ -120,7 +120,7 @@ void Smf::makeFramebuffer() {
 	}
 
 
-	cout << "mProj:\n";
+	//cout << "mProj:\n";
 	mProj.print();
 
 	Matrix mProjView = mProj.multiply(mView);
@@ -146,12 +146,12 @@ void Smf::makeFramebuffer() {
 		} else {
 			//create perspective points
 			for(int p=0; p<3; p++) {
-				//cout << "<" << faces.at(i).getVertex(0).getX() << ", " << faces.at(i).getVertex(0).getY() << ">  -->  ";
+				////cout << "<" << faces.at(i).getVertex(0).getX() << ", " << faces.at(i).getVertex(0).getY() << ">  -->  ";
 				zDiv = faces.at(i).getVertex(p).getZ();
-				//cout << "  zDiv: " << zDiv << "  "; 
+				////cout << "  zDiv: " << zDiv << "  "; 
 				points[p] = Point(-1*faces.at(i).getVertex(p).getX()/zDiv*250 + 250, 
 					-1*faces.at(i).getVertex(p).getY()/zDiv*250 +250);
-				//cout << "<" << points[p].getX() << ", " << points[p].getY() << "> \n";
+				////cout << "<" << points[p].getX() << ", " << points[p].getY() << "> \n";
 			}
 		}
 
@@ -186,5 +186,5 @@ char Smf::getPixel(int x, int y) {
 }
 
 void Smf::setDefaultArgs() {
-	cout << xPrp << endl << yPrp << endl;
+	//cout << xPrp << endl << yPrp << endl;
 }

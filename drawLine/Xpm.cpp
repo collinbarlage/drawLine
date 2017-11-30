@@ -45,7 +45,7 @@ void Xpm::writePs(string filename, Ps &ps){
 	of << "};\n";
 	of.close();
 
-	cout << "\nXPM file written to " << filename << endl << endl;
+	//cout << "\nXPM file written to " << filename << endl << endl;
 }
 
 void Xpm::writeSmf(string filename, Smf &smf){
@@ -55,26 +55,37 @@ void Xpm::writeSmf(string filename, Smf &smf){
 	of.open (filename);
 	//default xpm header
 	of << "/*XPM*/\nstatic char *sco100[] = {\n";
+	cout << "/*XPM*/\nstatic char *sco100[] = {\n";
 	of << "\"" << xMax << " " << yMax << " " << ncolors << " " << charsperpixel << "\",\n";
+	cout << "\"" << xMax << " " << yMax << " " << ncolors << " " << charsperpixel << "\",\n";
 
 	//TODO: loop through ps's colors
 	of << "/*colors*/\n";
+	cout << "/*colors*/\n";
 	of << "\"- c #ffffff\",\n";
+	cout << "\"- c #ffffff\",\n";
 	of << "\"# c #000000\",\n";
+	cout << "\"# c #000000\",\n";
 
 	//pixels
 	of << "/*pixels*/\n";
+	cout << "/*pixels*/\n";
 	for(int j=yMax-1; j>=yMin; j--) {
 		of << "\"";
+		cout << "\"";
 		for(int i=xMin; i<xMax; i++) {
 			of << smf.getPixel(i,j);
+			cout << smf.getPixel(i,j);
 		}
 		of << "\",\n";
+		cout << "\",\n";
 	}
+
 
 	//close file
 	of << "};\n";
+	cout << "};\n";
 	of.close();
 
-	cout << "\nXPM file written to " << filename << endl << endl;
+	//cout << "\nXPM file written to " << filename << endl << endl;
 }

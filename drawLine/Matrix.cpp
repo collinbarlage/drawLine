@@ -72,11 +72,11 @@ void Matrix::addColumn(float a, float b, float c, float d) {
 
 void Matrix::print() {
 	for(int j=3; j>=0; j--) {
-		cout << "[ ";
+		//cout << "[ ";
 		for(int i=0; i<n; i++) {
-			cout << v[i][j] << " ";
+			//cout << v[i][j] << " ";
 		}
-		cout << "]\n";
+		//cout << "]\n";
 	}
-	cout << "\n";
+	//cout << "\n";
 }
