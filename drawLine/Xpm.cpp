@@ -62,10 +62,10 @@ void Xpm::writeSmf(string filename, Smf &smf){
 	//TODO: loop through ps's colors
 	of << "/*colors*/\n";
 	cout << "/*colors*/\n";
-	of << "\"- c #ffffff\",\n";
-	cout << "\"- c #ffffff\",\n";
-	of << "\"# c #000000\",\n";
-	cout << "\"# c #000000\",\n";
+	of << "\"- c #000000\",\n";
+	cout << "\"- c #000000\",\n";
+	of << "\"# c #ff0000\",\n";
+	cout << "\"# c #ff0000\",\n";
 
 	//pixels
 	of << "/*pixels*/\n";
